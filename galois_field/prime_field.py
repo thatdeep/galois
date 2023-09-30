@@ -1,5 +1,4 @@
 import numpy as np
-from utils import is_prime
 
 
 class PrimeFieldElement:
@@ -68,6 +67,7 @@ class PrimeField:
     def __init__(self, p, n=1):
         if n != 1:
             return NotImplementedError(f'n != 1 is not supported yet')
+        from utils import is_prime
         if not is_prime(p):
             return ValueError('p must be prime')
         self.p = p
@@ -97,11 +97,9 @@ class PrimeField:
     def multiplicative(self):
         return self.elements[1:].copy()
     
-    def squares(self, unique=False):
+    def squares(self):
         squares = self.multiplicative() ** 2
-        if unique:
-            squares = np.unique(squares)
-        print(squares)
+        squares = np.unique(squares)
         return squares
     
     def __getitem__(self, n):
